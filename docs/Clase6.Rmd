@@ -1,0 +1,196 @@
+---
+title: 'Clase 6: Modelos lineales Generalizados'
+output:
+  html_document:
+         css: custom.css
+header-includes:
+  - \usepackage{float}
+  - \floatstyle{boxed}
+  - \restylefloat{figure}
+  
+---
+
+<div style="display:flex; align-items:center;">
+  <h1 style="margin:0;">Conteos: Poisson</h1>
+  <img src="imagenes/HNBI_LOGO2.jpg" alt="Texto alternativo de la imagen" style="width:100px; margin-left:20px;">
+</div>
+
+Los modelos lineales generalizados (GLM) son una clase de modelos estadísticos que se utilizan para describir la relación entre una variable dependiente y una o más variables independientes. A diferencia de los modelos lineales tradicionales, los modelos lineales generalizados no asumen que la relación entre las variables es lineal y permiten la utilización de una distribución de error no normal para la variable dependiente.
+
+Los modelos lineales generalizados se basan en el concepto de un modelo de respuesta generalizado, que es una función matemática que describe la relación entre la variable dependiente y las variables independientes. El modelo de respuesta generalizado incluye una función de enlace, que describe cómo la media de la variable dependiente varía con la variación de las variables independientes, y una función de varianza, que describe cómo la varianza de la variable dependiente varía con la media.
+
+La distribución de Poisson es una distribución de probabilidad discreta que se utiliza para modelar el número de eventos que ocurren en un intervalo de tiempo o un espacio dado. La distribución de Poisson se caracteriza por un solo parámetro, llamado tasa de eventos o tasa de Poisson, que describe la frecuencia esperada de eventos en el intervalo de tiempo o espacio dado.
+
+### Contenido {.tabset .tabset-pills}
+
+#### Base de datos
+
+Para la clase utilizaremos una base de datos sobre mejillones, a nuestra tabla la llamaremos `muss` y podemos cargarla con el sigueinte comando
+
+
+```{r}
+
+muss <- read.table("https://www.dropbox.com/s/q8tpwcfsh232g4s/muss.txt?dl=1", 
+                   header = T, dec = ".", stringsAsFactors = T)
+```
+
+La base de datos `muss` esta compuesta por 5 variables y 95 observaciones, cada fila en la base de datos representa un metro cuadrado, y dentro de las variables tenemos:
+
+- depth: water depth
+- subs: substrato, es un factor con tres niveles (gravel, mud, sand)
+- unio: abundancia de pintores y mejillones hinchados 
+- duck: abndancia de New Zealand duck mussel o *Anadara novaezelandiae*
+- swan: abundancia de The swan mussel, o *Anadara australis*
+ 
+```{r}
+str(muss)
+```
+
+
+
+#### Creando modelos candidatos
+
+En R podemos crear un GLM con distribucion de poisson utilizando el comando `glm()` y especificando la familia (family) y enlace (link). 
+
+Antes de realizar nuestros modelos, revisaremos nuestras variables respuestas
+
+```{r}
+table(muss$unio)
+```
+```{r}
+table(muss$duck)
+```
+
+```{r}
+table(muss$swan)
+
+```
+
+Tenemos tres variables respuestas, union, duck y swan, de las cuales `swan` es la que seleccionaremos para realizar nuestros modelos.
+
+Antes de crear nuestros modelos convertiremos la variable `subs` a factor, estos nos permitire realizar una prueba de contraste.
+
+```{r}
+muss$subs <- factor(muss$subs)
+```
+
+```{r}
+mussFit1 <- glm(swan ~ subs, family = poisson(link = log), data = muss)
+mussFit2 <- glm(swan ~ depth, family = poisson(link = log), data = muss)
+mussFit3 <- glm(swan ~ depth + subs, family = poisson(link = log), data = muss)
+mussFit4 <- glm(swan ~ depth:subs, family = poisson(link = log), data = muss)
+mussFit5 <- glm(swan ~ depth*subs, family = poisson(link = log), data = muss)
+mussFit6 <- glm(swan ~ depth + depth + I(depth^2), family = poisson(link = log), data = muss)
+mussFit7 <- glm(swan ~ subs + I(depth^2), family = poisson(link = log), data = muss)
+```
+
+#### Seleccion de modelo con Criterio de Informacion de Akaike
+
+Para esto necesitarems cargar el paquete `AICcmodavg`
+
+```{r}
+library(AICcmodavg)
+```
+
+Creamos la variable `Candidatos` la cual contiene nuestros modelos candidatos y la variable `Modelos` que contendra los nombres de nuestros modelos
+
+```{r}
+Candidatos <- list(mussFit1, mussFit2, mussFit3,
+                   mussFit4, mussFit5, mussFit6, mussFit7)
+
+Modelos <- c("mussFit1", "mussFit2", "mussFit3",
+                   "mussFit4", "mussFit5", "mussFit6", "mussFit7")
+```
+
+El comando `aictab()` nos permitira observar nuestros modelos y los criterios de selecion
+
+```{r}
+aictab(Candidatos, Modelos, sort = TRUE)
+
+```
+
+
+#### Validacion de modelo{.tabset .tabset-pills}
+
+Ya que el modelo `mussFit2` fue es mejor rankiado, ahora realizaresmos algunas pruebas con el fin de validar nuestro modelos
+
+##### Distribucion Normal de los residuales
+
+
+```{r}
+
+Residuales <- residuals.glm(mussFit2)
+hist(Residuales)
+
+car::qqPlot(Residuales)
+shapiro.test(Residuales)
+```
+
+Ahora utilizaremos el paquete `DHARMa`
+
+```{r}
+library(DHARMa)
+
+testResiduals(mussFit2)
+```
+
+##### Sobredispersion
+
+Sobredispersión se refiere a una situación en la que la varianza de los datos es mayor de lo que se esperaría en un modelo lineal general (GLM). Esto puede indicar que el modelo no es adecuado para los datos o que hay algún tipo de variabilidad no capturada en los datos.
+
+Una manera de evaluar si hay sobre dispersión es comparar la varianza de los datos con la varianza predicha por el modelo. Si la varianza de los datos es significativamente mayor que la varianza predicha por el modelo, es posible que haya sobre dispersión.
+
+
+**Evaluado la sobredispersion a mano**
+
+:::{.notes}
+
+
+```{r}
+
+summary(mussFit2)$deviance / summary(mussFit2)$df.residual
+
+```
+Si el valor resultante es 1, no tenemos sobredispersion, pero si el valor resultante es diferente a 1 podemos presentar problemas de sobredispersion.
+
+:::
+
+Ahora utilizando el paquete `DHARMa`
+
+```{r}
+testOverdispersion(mussFit2)
+```
+
+##### Ajuste del modelo
+
+
+```{r}
+dev_mussFit2 <- summary(mussFit2)$deviance
+df_mussfit2 <- summary(mussFit2)$df.residual
+
+1- pchisq(dev_mussFit2, df_mussfit2)
+```
+
+Si el valor resultante es mayor que 0.05 indica un buen ajuste del modelo.
+
+##### Zero-inflacion
+
+```{r}
+testZeroInflation(mussFit2)
+```
+
+
+#### Grafico de modelo
+
+```{r}
+library(ggplot2)
+
+ggplot(data= muss, aes(x= depth, y= swan)) +
+  stat_smooth(method = "glm", method.args = list(family = "poisson"))+
+  geom_point()+
+  theme_bw()
+```
+
+
+
+
