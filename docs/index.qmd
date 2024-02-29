@@ -51,25 +51,25 @@ Este curso proporciona una introducción práctica a las técnicas estadísticas
 
 # Temas que Cubriremos:
 
-[Clase 1: Comandos basicos en R y uso de scripts](Clase1.html)
+[Clase 1: Comandos basicos en R y uso de scripts](Clase1_1.html)
 
-[Clase 2: Analisis de Diversidad y Riqueza de especies](Clase2.html)
+[Clase 2: Analisis de Diversidad y Riqueza de especies](Clase2_1.html)
 
-[Clase 3: Analisis de Variaza y Prueba Correlacion](Clase3.html)
+[Clase 3: Analisis de Variaza y Prueba Correlacion](Clase3_1.html)
 
-[Clase 4: Pruebas no parametricas](Clase4.html)
+[Clase 4: Pruebas no parametricas](Clase4_1.html)
 
-[Clase 5: Modelos lineales](Clase5.html)
+[Clase 5: Modelos lineales](Clase5_1.html)
 
-[Clase 6: Modelos lineales Generalizados: Poisson](Clase6.html)
+[Clase 6: Modelos lineales Generalizados: Poisson](Clase6_1.html)
 
-[Clase 7: Modelos lineales Generalizados: Binomial](Clase7.html)
+[Clase 7: Modelos lineales Generalizados: Binomial](Clase7_1.html)
 
-[Clase 8: NMDS, PCA y PERMANOVA](Clase8.html)
+[Clase 8: NMDS, PCA y PERMANOVA](Clase8_1.html)
 
-[Clase 9: Anosim, MRPP, SIMPER e Indicador de especies](Clase9.html)
+[Clase 9: Anosim, MRPP, SIMPER e Indicador de especies](Clase9_1.html)
 
-[Clase 10: Repaso, Preguntas y respuestas](Clase10.html)
+[Clase 10: Repaso, Preguntas y respuestas](Clase10_1.html)
 
 # Metodología de Enseñanza:
 
