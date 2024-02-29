@@ -7,7 +7,7 @@ editor: visual
 
 [<img src="HN Cursos publicidad/HN Biology Inv Circle.jpg" align="right" width="100"/>](https://www.hnbiology.org/)
 
-Si estás interesado en profundizar en el mundo de la estadística, ¡este curso intermedio es perfecto para ti! En este curso intermedio, exploraremos temas más avanzados en estadística utilizando R y RStudio.
+En este curso, exploraremos cómo aplicar técnicas estadísticas fundamentales para analizar y comprender datos relacionados con el campo de la ecología. Desde la recopilación y limpieza de datos hasta la interpretación de resultados, este curso te proporcionará las habilidades necesarias para llevar a cabo análisis estadísticos efectivos en tu investigación ecológica.
 
 # Inscripciones
 
@@ -19,9 +19,9 @@ Si estás interesado en profundizar en el mundo de la estadística, ¡este curso
 
 # Costos de Inscripción:
 
--   Inversión en USD (Dólares estadounidenses): 35 USD.
+-   Inversión en USD (Dólares estadounidenses): 50 USD.
 
--   Inversión para hondureños: 800 Lempiras hondureños.
+-   Inversión para hondureños: 1200 Lempiras hondureños.
 
 # Métodos de Pago:
 
@@ -47,7 +47,7 @@ Si estás interesado en profundizar en el mundo de la estadística, ¡este curso
 
 # Descripción del Curso:
 
-En este curso, exploraremos los conceptos clave de la estadística de una manera accesible y práctica, utilizando ejemplos del mundo real y actividades interactivas. Desde la comprensión de datos hasta la interpretación de resultados, te guiaremos a través de cada paso para que puedas desarrollar una base sólida en análisis estadístico.
+Este curso proporciona una introducción práctica a las técnicas estadísticas aplicadas en ecología. Desde los fundamentos de R hasta el análisis avanzado de datos ecológicos, exploraremos una variedad de métodos estadísticos clave utilizados en la investigación ecológica.
 
 # Temas que Cubriremos:
 
@@ -55,7 +55,7 @@ En este curso, exploraremos los conceptos clave de la estadística de una manera
 
 [Clase 1: Comandos basicos en R y uso de scripts](Clase1.html)
 
-[Clase 2: Analisis de Diversidad](Clase2.html)
+[Clase 2: Analisis de Diversidad y Riqueza de especies](Clase2.html)
 
 [Clase 3: Analisis de Variaza y Prueba Correlacion](Clase3.html)
 
@@ -79,8 +79,11 @@ Nuestro enfoque educativo se basa en la práctica activa y el aprendizaje intera
 
 # Requisitos Previos:
 
-Se requiere haber completado el curso de [nivel básico](https://hn-biology-investigation.github.io/TemarioCursoAnalisisEstadisticoBasico/) o uno similar.
+No se requiere experiencia previa en estadística o programación.
 
-Este curso intermedio está diseñado para aquellos que desean profundizar en sus conocimientos de estadística y adquirir habilidades más avanzadas en el análisis de datos utilizando R y RStudio. ¡Esperamos que te unas a nosotros en este emocionante viaje hacia la estadística avanzada!
+Este curso está diseñado específicamente para personas interesadas en aplicar técnicas estadísticas en el campo de la ecología. A través de este curso, explorarás cómo utilizar R y RStudio para analizar y comprender datos ecológicos de manera más avanzada. 
+
+! Únete a nosotros en esta emocionante aventura hacia el dominio de la estadística aplicada a la ecología. ¡Te esperamos!
+
 
 ![HN Biology Investigation Academy](HN%20Cursos%20publicidad/HN%20Biology%20Inv%20large.jpg)
