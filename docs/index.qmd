@@ -51,8 +51,6 @@ Este curso proporciona una introducción práctica a las técnicas estadísticas
 
 # Temas que Cubriremos:
 
-[Introduccion al curso](Introduccion.html)
-
 [Clase 1: Comandos basicos en R y uso de scripts](Clase1.html)
 
 [Clase 2: Analisis de Diversidad y Riqueza de especies](Clase2.html)
