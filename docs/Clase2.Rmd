@@ -16,6 +16,20 @@ header-includes:
 </div>
 
 
+
+
+*Adquiero el curso completo, clases en vivo y materiales por 50 USD:*
+
+[PayPal](https://www.paypal.com/paypalme/hnbiologyinv) 
+
+Enviar comprobandte de pago: 
+
+<!-- Start Badges -->
+
+| [Whapsapp](http://wa.me/+50499549551) \| [Facebook](https://www.facebook.com/Hn.Biology.Investigation?mibextid=ZbWKwL) \| [email](admi@hnbiology.org) \| [website](https://www.hnbiology.org/) \|
+
+<!-- End Badges -->
+
 El contenido de esta clase se basara mayoritariamente en el libro `Community Ecology Analytical Methods Using R and Excel` by `Mark Gardener`
 
 Los índices de diversidad biológica son medidas cuantitativas que se utilizan para evaluar la diversidad de especies en un área determinada. Estos índices se utilizan comúnmente en la ecología y la conservación para medir la riqueza de especies, la evenness (equidad) de la distribución de especies y la distancia entre especies. Algunos ejemplos comunes de índices de diversidad biológica incluyen:
@@ -47,7 +61,7 @@ La riqueza de especies puede ser usada coma variable respuesta (dependiente) en 
 Primero vamos a cargar la base de datos `bird.sta.csv` para estimar la riqueza de especie por sitio de estudio.
 
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, include=FALSE}
 
 bird <- read.csv("data/bird.sta.csv")
 ```
@@ -57,7 +71,7 @@ bird <- read.csv("data/bird.sta.csv")
 library(here)
 library(knitr)
 
-bird <- read.csv(here("data", "bird.sta.csv"))
+bird <- read.csv(here("docs/data", "bird.sta.csv"))
 
 ```
 
@@ -83,7 +97,7 @@ library(vegan)
 
 -  Utilizaremos el comando specnumber para estimar la riqueza de especie por unidad de muestreo
 
-```{r}
+```{r, include=FALSE}
 Riqueza <- specnumber(bird[,4:81])
 
 head(Riqueza)
@@ -101,7 +115,7 @@ Observe que hemos creado la variable `Riqueza` la cual contiene la riqueza de es
 
 - Ahora Utilizaremos el comando specnumber condicionada por la variable `basin`.
 
-```{r}
+```{r, include=FALSE}
 RiquezaBasin <- specnumber(bird[,4:81], bird$basin)
 
 RiquezaBasin
@@ -126,14 +140,14 @@ Un unico valor de riqueza de especie no es suficiente para una comparacion, por 
 
 Comencemos con una comparacion visual utilizando un grafico de caja
 
-```{r, include=FALSE}
+```{r, include=FALSE, include=FALSE}
 Basin <- data.frame(Basin = bird$basin,
                     Riqueza = specnumber(bird[,4:81]))
 
 
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, include=FALSE}
 
 head(Basin)
 ```
@@ -142,7 +156,7 @@ Observe que ahora tenemos varios valores de riqueza por basin.
 
 para realizar la grafica de caja utilizaremos el comando `boxplot()`
 
-```{r}
+```{r, include=FALSE}
 boxplot(Riqueza ~ Basin, data= Basin,
         main = "Riqueza de especie por basin")
 ```
@@ -162,12 +176,12 @@ Como la grafica de caja no muestra una diferencia marcada, vamos a intentar ser 
 
 Comenzemos estimando la media de la riqueza de especie por basin
 
-```{r}
+```{r, include=FALSE}
 tapply(Basin$Riqueza, Basin$Basin, mean)
 ```
 Al parecer el basin N presenta una media ligeramente mayor que basin D y L, pero tenemos que revisar el error estandard. Para esto utilizaremos el paquete `FSA`
 
-```{r}
+```{r, include=FALSE}
 library(FSA)
 
 BasinRiqueza <- Summarize(Riqueza ~ Basin, data = Basin)
@@ -183,7 +197,7 @@ BasinRiqueza$IC95 <- 1.96 * BasinRiqueza$sd / sqrt(BasinRiqueza$n)
 
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, include=FALSE}
 
 kable(BasinRiqueza)
 
@@ -192,7 +206,7 @@ kable(BasinRiqueza)
 
 Ahora que tenemos la media e intervalos de confianza podemos generar un grafico de caja modificado, utilizando el paquete `ggplot2`
 
-```{r, fig.align='center'}
+```{r, fig.align='center', include=FALSE}
 
 library(ggplot2)
 
@@ -228,13 +242,13 @@ Por ahora hemos realizado algunos analisis sin tomar en cuenta la cantidad de mu
 
 Para realizar la curva de acumulacion de especie necesitamos utilizar el comando `specaccum()` del paquete `vegan`
 
-```{r}
+```{r, include=FALSE}
 Riqueza <- specaccum(bird[,4:81], method = "exact")
 ```
 
 - Para visualizar la curva de acumulacion de especies nececitaremos utilizar el comando `plo()`
 
-```{r, fig.align='center'}
+```{r, fig.align='center', include=FALSE}
 plot(Riqueza, 
      ci.type = "poly",
      ci.col = "gray",
@@ -256,13 +270,13 @@ Para realizar una comparacion de riqueza con una curva de acumulacion de especie
 
 - Primero separar nuestra tabla `bird` por catergoria de `basin`
 
-```{r}
+```{r, include=FALSE}
 table(bird$basin)
 ```
 
 Observe que tenemos tres categorias D, L y N
 
-```{r}
+```{r, include=FALSE}
 D <- subset(bird, basin == "D")
 L <- subset(bird, basin == "L")
 N <- subset(bird, basin == "N")
@@ -270,7 +284,7 @@ N <- subset(bird, basin == "N")
 
 - Ahora estimamos la curva de acumulacion de especie por basin
 
-```{r}
+```{r, include=FALSE}
 rar_D <- specaccum(D[,4:81], method = "exact")
 
 rar_L <- specaccum(L[,4:81], method = "exact")
@@ -281,7 +295,7 @@ rar_N <- specaccum(N[,4:81], method = "exact")
 
 - Creamos un data frame para cada una de las categorias de basin
 
-```{r}
+```{r, include=FALSE}
 D_df <- data.frame(Basin = "D",
                    Riqueza = rar_D$richness,
                    DS = rar_D$sd,
@@ -302,19 +316,19 @@ N_df <- data.frame(Basin = "N",
 - Ahora combinamos nuestras tablas
 
 
-```{r}
+```{r, include=FALSE}
 Basin_df <- rbind(D_df, L_df, N_df)
 ```
 
 - Necesitamos estimar los intervalos de confinza al 95%
 
-```{r}
+```{r, include=FALSE}
 Basin_df$IC95 <- 1.96 * Basin_df$DS / sqrt(1)
 ```
 
 - Por ultimo realizamos nuetro grafico con ggplot
 
-```{r, fig.align='center'}
+```{r, fig.align='center', include=FALSE}
 
 ggplot(data= Basin_df, aes(x= Esfuerzo, y= Riqueza, fill = Basin))+
   geom_line()+
@@ -354,7 +368,7 @@ Riqueza_incidencia <- specpool(bird[,4:81], pool = bird$basin)
 ```
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, include=FALSE}
 kable(Riqueza_incidencia)
 ```
 
@@ -382,7 +396,7 @@ Riqueza_abundancia <- data.frame <- t(Riqueza_abundancia)
 
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, include=FALSE}
 kable(head(Riqueza_abundancia))
 ```
 
@@ -415,7 +429,7 @@ El índice de diversidad de Simpson es una medida relativa y su valor puede vari
 para estimar el indice de simpson podemos utilizar el comando `diversity()` del paquete `vegan`
 
 
-```{r}
+```{r, include=FALSE}
 Diversidad_simpson <- diversity(bird[,4:81], index = "simpson")
 
 head(Diversidad_simpson)
@@ -441,7 +455,7 @@ El índice de Shannon es una medida relativa y su valor puede variar entre 0 y l
 para estimar el indice de simpson podemos utilizar el comando `diversity()` del paquete `vegan`
 
 
-```{r}
+```{r, include=FALSE}
 Diversidad_shannon <- diversity(bird[,4:81], index = "shannon")
 
 head(Diversidad_shannon)
