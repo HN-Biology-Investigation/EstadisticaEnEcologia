@@ -55,21 +55,21 @@ Este curso proporciona una introducción práctica a las técnicas estadísticas
 
 [Clase 2: Analisis de Diversidad y Riqueza de especies](Clase2.html)
 
-[Clase 3: Analisis de Variaza y Prueba Correlacion](Clase3_1.html)
+[Clase 3: Analisis de Variaza y Prueba Correlacion]
 
-[Clase 4: Pruebas no parametricas](Clase4_1.html)
+[Clase 4: Pruebas no parametricas]
 
-[Clase 5: Modelos lineales](Clase5_1.html)
+[Clase 5: Modelos lineales]
 
-[Clase 6: Modelos lineales Generalizados: Poisson](Clase6_1.html)
+[Clase 6: Modelos lineales Generalizados: Poisson]
 
-[Clase 7: Modelos lineales Generalizados: Binomial](Clase7_1.html)
+[Clase 7: Modelos lineales Generalizados: Binomial]
 
-[Clase 8: NMDS, PCA y PERMANOVA](Clase8_1.html)
+[Clase 8: NMDS, PCA y PERMANOVA]
 
-[Clase 9: Anosim, MRPP, SIMPER e Indicador de especies](Clase9_1.html)
+[Clase 9: Anosim, MRPP, SIMPER e Indicador de especies]
 
-[Clase 10: Repaso, Preguntas y respuestas](Clase10_1.html)
+[Clase 10: Repaso, Preguntas y respuestas]
 
 # Metodología de Enseñanza:
 
